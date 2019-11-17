@@ -1,6 +1,6 @@
 $(document).ready(function () {
     // make consistent
-    var hours = ["9AM", "10Am", "11AM", "12AM", "1PM", "2PM", "3PM", "4PM", "5PM"]
+    var hours = ["9AM", "10AM", "11AM", "12AM", "1PM", "2PM", "3PM", "4PM", "5PM"]
     var containerDiv = $('.container');
 
     function buildLoop() {
@@ -42,22 +42,32 @@ $(document).ready(function () {
 
         }
         getSavedNotes();
+        console.log("workingA");
+        $(".saveBtn").click(function () {
+            var time = $(this).siblings("div.time-block").text();
+            console.log(time);
+            console.log("click");
+            var input = $(this).siblings("div.planner").children("textarea").val();
+            console.log(input);
+    
+            localStorage.setItem(time, input);
+    
+        })
     }
 
-    $(".saveBtn").click(function () {
-        var time = $(this).siblings("div.time-block").text();
-        console.log(time);
-        console.log("click");
-        var input = $(this).siblings("div.planner").children("textarea").val();
-        console.log(input);
-
-        localStorage.setItem(time, input);
-
-    })
-
-    function getSavedNotes() {
-        $("#9AM").val(localStorage.getItem("9AM"));
-
+   function getSavedNotes() {
+   $("#9AM").val(localStorage.getItem("9AM"));
+   $("#10AM").val(localStorage.getItem("10AM"));
+   $("#11AM").val(localStorage.getItem("11AM"));
+   $("#12PM").val(localStorage.getItem("12PM"));
+   $("#1PM").val(localStorage.getItem("1PM"));
+   $("#2PM").val(localStorage.getItem("2PM"));
+   $("#3PM").val(localStorage.getItem("3PM"));
+   $("#4PM").val(localStorage.getItem("4PM"));
+   $("#5PM").val(localStorage.getItem("5PM"));
+    
     }
     buildLoop();
+    console.log("workingB");
 })
+
