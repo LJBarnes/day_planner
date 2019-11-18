@@ -1,7 +1,13 @@
 $(document).ready(function () {
-    // make consistent
+
+    $("#currentDay").text("Today is: "+ moment().format('MMMM Do YYYY'));
+    
+    // Global Variables
     var hours = ["9AM", "10AM", "11AM", "12AM", "1PM", "2PM", "3PM", "4PM", "5PM"]
     var containerDiv = $('.container');
+    var currentTime = moment().format('hA');
+    // var plannerDiv = $('.planner');
+    
 
     function buildLoop() {
         // this loop creates/appends the HTML columns and rows
@@ -14,6 +20,7 @@ $(document).ready(function () {
 
             // create column2 with textarea
             var column2 = $("<div class='col-sm-10 planner'></div>");
+            // $('.planner').attr("id", );
 
             // create column3 with .saveBtn class
             var column3 = $("<div class='col-sm-1 saveBtn'></div>");
@@ -40,6 +47,18 @@ $(document).ready(function () {
             // append all to container div
             containerDiv.append(row)
 
+            if (currentTime === hours[i]) {
+                $(".planner").addClass("present");
+            }
+
+            else if (currentTime => hours[i]) {
+                $(".planner").addClass("past");
+            }
+            // // this one breaks the code, have no idea why
+            //  else if (currentTime =< hour[i]) {
+            //     $(".planner").addClass("future");
+            // }
+
         }
         getSavedNotes();
         console.log("workingA");
@@ -56,6 +75,7 @@ $(document).ready(function () {
     }
 
    function getSavedNotes() {
+    //"textarea" value(go to local storage and get )    
    $("#9AM").val(localStorage.getItem("9AM"));
    $("#10AM").val(localStorage.getItem("10AM"));
    $("#11AM").val(localStorage.getItem("11AM"));
@@ -69,5 +89,6 @@ $(document).ready(function () {
     }
     buildLoop();
     console.log("workingB");
+    console.log(currentTime);
 })
 
