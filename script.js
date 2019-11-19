@@ -1,13 +1,18 @@
-$(document).ready(function () {
 
-    $("#currentDay").text("Today is: "+ moment().format('MMMM Do YYYY'));
-    
-    // Global Variables
-    var hours = ["9AM", "10AM", "11AM", "12AM", "1PM", "2PM", "3PM", "4PM", "5PM"]
+$(document).ready(function () {
+    $("#currentDay").text("Today is: " + moment().format('MMMM Do YYYY'));
+
+
+    var column1hours = ["9AM", "10AM", "11AM", "12AM", "1PM", "2PM", "3PM", "4PM", "5PM"];
+    var hours = ["09", "10", "11", "12", "13", "14", "15", "16", "17"];
     var containerDiv = $('.container');
-    var currentTime = moment().format('hA');
+    // changed format to 24 hour/military hour because my if statements weren't working/things were getting weird with a 12 hr format
+    // but I can't figure out how to get local storage to work if I substitute in column1hours (12 hr format)
+    // even when I change the numbers to match "9AM", etc. it won't save the key.
+    var currentTime = moment().format('HH');
+
     // var plannerDiv = $('.planner');
-    
+
 
     function buildLoop() {
         // this loop creates/appends the HTML columns and rows
@@ -18,8 +23,17 @@ $(document).ready(function () {
             // create column1 with .hour class
             var column1 = $("<div class='col-sm-1 hour time-block'>" + hours[i] + "</div>");
 
-            // create column2 with textarea
-            var column2 = $("<div class='col-sm-10 planner'></div>");
+            // create column2 with conditionals so color code can work
+            if (currentTime === hours[i]) {
+                var column2 = $("<div class='col-sm-10 planner present'></div>");
+            }
+            else if (currentTime > hours[i]) {
+                var column2 = $("<div class='col-sm-10 planner past'></div>");
+            }
+            else {
+                var column2 = $("<div class='col-sm-10 planner future'></div>");
+
+            }
             // $('.planner').attr("id", );
 
             // create column3 with .saveBtn class
@@ -47,45 +61,36 @@ $(document).ready(function () {
             // append all to container div
             containerDiv.append(row)
 
-            if (currentTime === hours[i]) {
-                $(".planner").addClass("present");
-            }
-
-            else if (currentTime => hours[i]) {
-                $(".planner").addClass("past");
-            }
-            // // this one breaks the code, have no idea why
-            //  else if (currentTime =< hour[i]) {
-            //     $(".planner").addClass("future");
-            // }
-
         }
         getSavedNotes();
         console.log("workingA");
+
+
         $(".saveBtn").click(function () {
+            console.log("click");
             var time = $(this).siblings("div.time-block").text();
             console.log(time);
-            console.log("click");
+            console.log("workingz");
             var input = $(this).siblings("div.planner").children("textarea").val();
             console.log(input);
-    
+
             localStorage.setItem(time, input);
-    
+
         })
     }
 
-   function getSavedNotes() {
-    //"textarea" value(go to local storage and get )    
-   $("#9AM").val(localStorage.getItem("9AM"));
-   $("#10AM").val(localStorage.getItem("10AM"));
-   $("#11AM").val(localStorage.getItem("11AM"));
-   $("#12PM").val(localStorage.getItem("12PM"));
-   $("#1PM").val(localStorage.getItem("1PM"));
-   $("#2PM").val(localStorage.getItem("2PM"));
-   $("#3PM").val(localStorage.getItem("3PM"));
-   $("#4PM").val(localStorage.getItem("4PM"));
-   $("#5PM").val(localStorage.getItem("5PM"));
-    
+    function getSavedNotes() {
+        //essentially saying "textarea" value(go to local storage and get matching (time)    
+        $("#09").val(localStorage.getItem("09"));
+        $("#10").val(localStorage.getItem("10"));
+        $("#11").val(localStorage.getItem("11"));
+        $("#12").val(localStorage.getItem("12"));
+        $("#13").val(localStorage.getItem("13"));
+        $("#14").val(localStorage.getItem("14"));
+        $("#15").val(localStorage.getItem("15"));
+        $("#16").val(localStorage.getItem("16"));
+        $("#17").val(localStorage.getItem("17"));
+
     }
     buildLoop();
     console.log("workingB");
