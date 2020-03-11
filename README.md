@@ -9,4 +9,7 @@ This web application creates HTML dynamically by utilizing Jquery and a for loop
 
 ![scheduler](https://user-images.githubusercontent.com/53705501/69159943-b0842f80-0ab6-11ea-9504-3f3452172f10.jpg)
 
+# Demo
+[Link to Deployed Application](https://ljbarnes.github.io/day_planner/)
+
 
